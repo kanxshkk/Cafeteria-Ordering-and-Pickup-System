@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order</title>
+</head>
+<body>
+    <h1>Order Details</h1>
+
+    <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+    <p><strong>Status:</strong> {{ order.status }}</p>
+    <p><strong>Total Amount:</strong> ${{ order.total_amount }}</p>
+    <p><strong>Cafeteria:</strong> {{ order.cafeteria.name }}</p>
+    <h2>Ordered Items</h2>
+    <ul>
+        {% for order_item in order.orderitem_set.all %}
+          <li>{{ order_item.menu_item.name }} - Quantity: {{ order_item.quantity }}</li>
+        {% endfor %}
+    </ul>
+
+    <form method="post" action="{% url 'pickup_order' order.id %}">
+        {% csrf_token %}
+        <button type="submit">Pickup Order</button>
+    </form>
+</body>
+</html>

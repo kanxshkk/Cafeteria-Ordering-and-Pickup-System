@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Order History</h2>
+  <!-- Display user's order history -->
+  <ul>
+    {% for order in orders %}
+      <li>
+        Order Number: {{ order.order_number }}
+        Status: {{ order.status }}
+        Total Amount: {{ order.total_amount }}
+        Cafeteria: {{ order.cafeteria.name }}
+        <a href="{% url 'track_order' order_id=order.order_number %}">Track Order</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

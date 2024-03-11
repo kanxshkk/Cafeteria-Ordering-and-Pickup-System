@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Menu Browsing</h2>
+  <!-- Display available cafeterias and menu items -->
+  <!-- Add logic to filter menu items based on user preferences -->
+  {% for cafeteria in cafeterias %}
+    <h3>{{ cafeteria.name }}</h3>
+    <a href="{% url 'place_order' cafeteria_id=cafeteria.id %}">Place Order</a>
+    <ul>
+      {% for item in menu_items %}
+        {% if item.cafeteria == cafeteria %}
+          <li>{{ item.name }} - {{ item.price }} - {{ item.description }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endfor %}
+{% endblock %}

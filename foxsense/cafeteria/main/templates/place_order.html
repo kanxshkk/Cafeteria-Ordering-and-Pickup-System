@@ -1,0 +1,23 @@
+<form method="post" action="{% url 'place_order' cafeteria_id=cafeteria.id %}">
+  {% csrf_token %}
+
+  <label for="pickup_location">Pickup Location:</label>
+  <input type="text" name="pickup_location" required>
+
+  <label for="dining_preference">Dining Preference:</label>
+  <select name="dining_preference" required>
+      <option value="dine-in">Dine-In</option>
+      <option value="takeout">Takeout</option>
+  </select>
+
+  <h2>Select Items and Quantity to Add to Your Order:</h2>
+  {% for item in menu_items %}
+      <label>
+          {{ item.name }} - ${{ item.price }}
+          <input type="number" name="selected_items" value="{{ item.id }}" style="display: none;">
+          <input type="number" name="quantity_{{ item.id }}" value="0" min="0">
+      </label><br>
+  {% endfor %}
+
+  <button type="submit">Place Order</button>
+</form>
